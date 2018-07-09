@@ -6,25 +6,16 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.prud.zm.pi.batch.model.ILDataBatchEntity;
+import com.prud.zm.pi.persistence.entity.ILDataEntity;
 
-public class ILDataBatchRowMapper implements RowMapper<ILDataBatchEntity> {
+public class ILDataBatchRowMapper implements RowMapper<ILDataEntity> {
 
 	@Override
-	public ILDataBatchEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
-		ILDataBatchEntity ilDataEntity = new ILDataBatchEntity();
-		ilDataEntity.setBankId(rs.getString("bankId"));
-		ilDataEntity.setBankAccountDesc(rs.getString("bank_acnt_desc"));
-		ilDataEntity.setNoBatchNumber(rs.getString("nobatchnum"));
-		ilDataEntity.setNoRecbatchNumber(rs.getString("norecbatchnum"));
-		ilDataEntity.setPaymentDetailsId(rs.getLong("pd_id"));
-		ilDataEntity.setPrudAccountRef(rs.getString("prud_acnt_ref"));
-		ilDataEntity.setRecordType(rs.getString("recordtype"));
-		ilDataEntity.setSequenceFrom(rs.getLong("sequencefrom"));
-		ilDataEntity.setSign(rs.getString("sign"));
-		ilDataEntity.setSubMissionDate(rs.getString("submissiondate"));
-		ilDataEntity.setTotalAmount(rs.getString("totalamnt"));
-		ilDataEntity.setValueDate(rs.getString("valuedate"));
-		ilDataEntity.setPaymentStatus(rs.getString("paymentstatus"));
+	public ILDataEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
+		ILDataEntity ilDataEntity = new ILDataEntity();
+		ilDataEntity.setAgntCOY(rs.getString("AGNTCOY"));
+		ilDataEntity.setPayrCOY(rs.getString("PAYRCOY"));
+		ilDataEntity.setPayrNUM(rs.getString("PAYRNUM"));
 		return ilDataEntity;
 	}
 

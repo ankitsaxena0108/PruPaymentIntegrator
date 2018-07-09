@@ -119,4 +119,13 @@ public class ILDataBatchEntity {
 		this.paymentDetailsId = paymentDetailsId;
 	}
 
+	@Override
+	public String toString() {
+		return "ILDataBatchEntity [paymentDetailsId=" + paymentDetailsId + ", bankId=" + bankId + ", prudAccountRef="
+				+ prudAccountRef + ", subMissionDate=" + subMissionDate + ", sequenceFrom=" + sequenceFrom
+				+ ", bankAccountDesc=" + bankAccountDesc + ", valueDate=" + valueDate + ", recordType=" + recordType
+				+ ", noBatchNumber=" + noBatchNumber + ", sign=" + sign + ", noRecbatchNumber=" + noRecbatchNumber
+				+ ", totalAmount=" + totalAmount + ", paymentStatus=" + paymentStatus + "]";
+	}
+
 }

@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.prud.zm.pi.batch.helper.PaymentBatchJobLauncher;
+import com.prud.zm.pi.helper.ILDataHelper;
 import com.prud.zm.pi.model.ILDataList;
 import com.prud.zm.pi.persist.ILPersister;
 import com.prud.zm.pi.persistence.entity.ILDataEntity;
-import com.prud.zm.pi.processor.ILProcessor;
 
 @Service
 public class ILService {
@@ -18,7 +18,7 @@ public class ILService {
 	private ILPersister ilPersister;
 	
 	@Autowired
-	private ILProcessor ilProcessor;
+	private ILDataHelper ilProcessor;
 	@Autowired
 	private PaymentBatchJobLauncher jobLauncher;
 	
@@ -29,10 +29,10 @@ public class ILService {
 		}
 		try {
 			jobLauncher.invokeJob();
+			return "SUCCESS";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "SUCCESS";
+		return "FAILURE";
 	}
 }
