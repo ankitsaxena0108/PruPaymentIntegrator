@@ -14,8 +14,13 @@ public class ILDataBatchRowMapper implements RowMapper<ILDataEntity> {
 	public ILDataEntity mapRow(ResultSet rs, int rowNum) throws SQLException {
 		ILDataEntity ilDataEntity = new ILDataEntity();
 		ilDataEntity.setAgntCOY(rs.getString("AGNTCOY"));
-		ilDataEntity.setPayrCOY(rs.getString("PAYRCOY"));
 		ilDataEntity.setPayrNUM(rs.getString("PAYRNUM"));
+		ilDataEntity.setInstAmt01(rs.getString("INSTAMT01"));
+		ilDataEntity.setByDate(rs.getString("BTDATE"));
+		ilDataEntity.setBankAccKey(rs.getString("BANKACCKEY"));
+		ilDataEntity.setCntCurr(rs.getString("CNTCURR"));
+		ilDataEntity.setUserProfile(rs.getString("USER_PROFILE"));
+		ilDataEntity.setAgntCOY(rs.getString("AGNTCOY"));
 		return ilDataEntity;
 	}
 

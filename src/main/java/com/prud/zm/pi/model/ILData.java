@@ -1,5 +1,7 @@
 package com.prud.zm.pi.model;
 
+import javax.persistence.Column;
+
 import com.poiji.annotation.ExcelCellName;
 
 public class ILData {
@@ -27,6 +29,8 @@ public class ILData {
 	private String servUnit;
 	@ExcelCellName("CNTTYPE")
 	private String cntType;
+	@ExcelCellName("CNTCURR")
+	private String cntCurr;
 	@ExcelCellName("OCCDATE")
 	private String occDate;
 	@ExcelCellName("CCDATE")
@@ -555,28 +559,32 @@ public class ILData {
 	public void setDaTime(String daTime) {
 		this.daTime = daTime;
 	}
+	public String getCntCurr() {
+		return cntCurr;
+	}
+	public void setCntCurr(String cntCurr) {
+		this.cntCurr = cntCurr;
+	}
 	@Override
 	public String toString() {
 		return "ILData [id=" + id + ", payrCOY=" + payrCOY + ", payrNUM=" + payrNUM + ", mandRef=" + mandRef
 				+ ", bankKey=" + bankKey + ", bankAccKey=" + bankAccKey + ", billCD=" + billCD + ", chdrPFX=" + chdrPFX
 				+ ", chdrCOY=" + chdrCOY + ", chdrNUM=" + chdrNUM + ", servUnit=" + servUnit + ", cntType=" + cntType
-				+ ", occDate=" + occDate + ", ccDate=" + ccDate + ", ptDate=" + ptDate + ", byDate=" + byDate
-				+ ", billDate=" + billDate + ", billCHNL=" + billCHNL + ", bankCode=" + bankCode + ", instFrom="
-				+ instFrom + ", instTo=" + instTo + ", instBCHNL=" + instBCHNL + ", instCCHNL=" + instCCHNL
-				+ ", instFreq=" + instFreq + ", instAmt01=" + instAmt01 + ", instAmt02=" + instAmt02 + ", instAmt03="
-				+ instAmt03 + ", instAmt04=" + instAmt04 + ", instAmt05=" + instAmt05 + ", instAmt06=" + instAmt06
-				+ ", instAmt07=" + instAmt07 + ", instAmt08=" + instAmt08 + ", instAmt09=" + instAmt09 + ", instAmt10="
-				+ instAmt10 + ", instAmt11=" + instAmt11 + ", instAmt12=" + instAmt12 + ", instAmt13=" + instAmt13
-				+ ", instAmt14=" + instAmt14 + ", instAmt15=" + instAmt15 + ", grupKey=" + grupKey + ", membSel="
-				+ membSel + ", factHous=" + factHous + ", cownPFX=" + cownPFX + ", cownCOY=" + cownCOY + ", cownNUM="
-				+ cownNUM + ", payrPFX=" + payrPFX + ", cntBranch=" + cntBranch + ", agntPFX=" + agntPFX + ", agntCOY="
-				+ agntCOY + ", agntNUM=" + agntNUM + ", payFlag=" + payFlag + ", bilFlag=" + bilFlag + ", outFlag="
-				+ outFlag + ", supFLAG=" + supFLAG + ", company=" + company + ", jobNO=" + jobNO + ", sacsCode="
-				+ sacsCode + ", sacsTyp=" + sacsTyp + ", glMap=" + glMap + ", dhnFlag=" + dhnFlag
+				+ ", cntCurr=" + cntCurr + ", occDate=" + occDate + ", ccDate=" + ccDate + ", ptDate=" + ptDate
+				+ ", byDate=" + byDate + ", billDate=" + billDate + ", billCHNL=" + billCHNL + ", bankCode=" + bankCode
+				+ ", instFrom=" + instFrom + ", instTo=" + instTo + ", instBCHNL=" + instBCHNL + ", instCCHNL="
+				+ instCCHNL + ", instFreq=" + instFreq + ", instAmt01=" + instAmt01 + ", instAmt02=" + instAmt02
+				+ ", instAmt03=" + instAmt03 + ", instAmt04=" + instAmt04 + ", instAmt05=" + instAmt05 + ", instAmt06="
+				+ instAmt06 + ", instAmt07=" + instAmt07 + ", instAmt08=" + instAmt08 + ", instAmt09=" + instAmt09
+				+ ", instAmt10=" + instAmt10 + ", instAmt11=" + instAmt11 + ", instAmt12=" + instAmt12 + ", instAmt13="
+				+ instAmt13 + ", instAmt14=" + instAmt14 + ", instAmt15=" + instAmt15 + ", grupKey=" + grupKey
+				+ ", membSel=" + membSel + ", factHous=" + factHous + ", cownPFX=" + cownPFX + ", cownCOY=" + cownCOY
+				+ ", cownNUM=" + cownNUM + ", payrPFX=" + payrPFX + ", cntBranch=" + cntBranch + ", agntPFX=" + agntPFX
+				+ ", agntCOY=" + agntCOY + ", agntNUM=" + agntNUM + ", payFlag=" + payFlag + ", bilFlag=" + bilFlag
+				+ ", outFlag=" + outFlag + ", supFLAG=" + supFLAG + ", company=" + company + ", jobNO=" + jobNO
+				+ ", sacsCode=" + sacsCode + ", sacsTyp=" + sacsTyp + ", glMap=" + glMap + ", dhnFlag=" + dhnFlag
 				+ ", originalMandStat=" + originalMandStat + ", dddeRef=" + dddeRef + ", rdocPFX=" + rdocPFX
 				+ ", rdocCOY=" + rdocCOY + ", rdocNUM=" + rdocNUM + ", nextDate=" + nextDate + ", userProfile="
 				+ userProfile + ", jobName=" + jobName + ", daTime=" + daTime + "]";
 	}
-	
-	
 }

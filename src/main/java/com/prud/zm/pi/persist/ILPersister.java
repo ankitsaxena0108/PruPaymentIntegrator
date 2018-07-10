@@ -18,6 +18,7 @@ public class ILPersister{
 //	private EntityManagerFactory entityManagerFactory;
 	
 	public void addIlData(ILDataEntity ildataEntity){
+		System.out.println("Before add "+ildataEntity);
 		ilRepository.save(ildataEntity);
 	}
 }

@@ -15,19 +15,18 @@ import com.prud.zm.pi.batch.mapper.OrikaBatchModelConverter;
 import com.prud.zm.pi.model.CitiBankDomainModel;
 import com.prud.zm.pi.persistence.entity.ILDataEntity;
 
-@PropertySource("classpath:citbank-attributes.properties")
 public class ILDataBatchWriter implements ItemWriter<ILDataEntity> {
 	@Autowired
 	private Environment env;
 	@Autowired
 	private OrikaBatchModelConverter converter;
 
-	private String fillValue(String value, int size) {
-		if (value != null) {
-			int noOfFillersNeeded = size - value.length();
+	private String fillValue(String value, String size) {
+		if (value != null && !value.equals("")) {
+			int noOfFillersNeeded = Integer.parseInt(size) - value.length();
 			return value + String.join("", Collections.nCopies(noOfFillersNeeded, " "));
 		}
-		return null;
+		return "";
 	}
 
 	private void writeFileToBankDirectory(StringBuilder dataBuilder) throws FileNotFoundException, IOException {
@@ -37,17 +36,40 @@ public class ILDataBatchWriter implements ItemWriter<ILDataEntity> {
 	}
 
 	private StringBuilder getRowData(CitiBankDomainModel citiModel) {
-		System.out.println(env.getProperty("REC-SORT-CODE"));
+		System.out.println("citiModel ="+citiModel);
 		StringBuilder rowData = new StringBuilder();
-		rowData.append(fillValue(citiModel.getRecAcctNO(), 20));
-		rowData.append(fillValue(citiModel.getRecAcctCode(), 20));
-		/*
-		 * rowData.append(fillValue("ABCD1234",16)); //BANKACCKEY
-		 * rowData.append(fillValue("",4)); //CURRTO rowData.append(fillValue("+",1));
-		 * //SIGN rowData.append(fillValue("1000",10)); //DEBITAMT
-		 * rowData.append(fillValue("",8)); //CHRDNUM
-		 * rowData.append(fillValue("DONE",12)); //CHRDNUM
-		 */ return rowData;
+		rowData.append(fillValue(citiModel.getCustomerReference(), env.getProperty("customerReference")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getAmount(), env.getProperty("amount")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getBookingDate(), env.getProperty("bookingDate")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getCreditAccount(), env.getProperty("creditAccount")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getIsoCurrency(), env.getProperty("isoCurrency")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPaymentDetails1(), env.getProperty("paymentDetails1")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPaymentDetails2(), env.getProperty("paymentDetails2")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPaymentDetails3(), env.getProperty("paymentDetails3")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPayerAccountNumber(), env.getProperty("payerAccountNumber")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPayerAccountName(), env.getProperty("payerAccountName")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPayerAddress1(), env.getProperty("payerAddress1")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPayerAddress2(), env.getProperty("payerAddress2")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPayerBankCode(), env.getProperty("payerBankCode")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getBankName(), env.getProperty("bankName")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPaymentDetails4(), env.getProperty("paymentDetails4")));
+		rowData.append("#");
+		rowData.append(fillValue(citiModel.getPayerAddress3(), env.getProperty("payerAddress3")));
+		return rowData;
 	}
 
 	@Override

@@ -1,173 +1,118 @@
 package com.prud.zm.pi.model;
 
 public class CitiBankDomainModel {
-	private String recSortCode;
-	private String recAcctNO;
-	private String recAcctCode;
-	private String recTransCcode;
-	private String recSortCode02;
-	private String RecAcctNO02;
-	private String recAmount;
-	private String recUserName;
-	private String recClntNO;
-	private String recMandRef;
-	private String recMandStat;
-	private String recAcctName;
-	private String recDate01;
-	private String conSortCode;
-	private String conAcctNO;
-	private String conAcctCode;
-	private String conTransCode;
-	private String conSortCode02;
-	private String conAcctNO02;
-	private String conAmount;
-	private String conUserName;
-	private String conContra;
-	private String conAcctName;
-	private String conDate01;
+	private String customerReference;
+	private String amount;
+	private String bookingDate;
+	private String creditAccount;
+	private String isoCurrency;
+	private String paymentDetails1;
+	private String paymentDetails2;
+	private String paymentDetails3;
+	private String payerAccountNumber;
+	private String payerAccountName;
+	private String payerAddress1;
+	private String payerAddress2;
+	private String payerBankCode;
+	private String bankName ;
+	private String paymentDetails4;
+	private String payerAddress3;
 	
-	public String getRecSortCode() {
-		return recSortCode;
+	public String getCustomerReference() {
+		return customerReference;
 	}
-	public void setRecSortCode(String recSortCode) {
-		this.recSortCode = recSortCode;
+	public void setCustomerReference(String customerReference) {
+		this.customerReference = customerReference;
 	}
-	public String getRecAcctNO() {
-		return recAcctNO;
+	public String getAmount() {
+		return amount;
 	}
-	public void setRecAcctNO(String recAcctNO) {
-		this.recAcctNO = recAcctNO;
+	public void setAmount(String amount) {
+		this.amount = amount;
 	}
-	public String getRecAcctCode() {
-		return recAcctCode;
+	public String getBookingDate() {
+		return bookingDate;
 	}
-	public void setRecAcctCode(String recAcctCode) {
-		this.recAcctCode = recAcctCode;
+	public void setBookingDate(String bookingDate) {
+		this.bookingDate = bookingDate;
 	}
-	public String getRecTransCcode() {
-		return recTransCcode;
+	public String getCreditAccount() {
+		return creditAccount;
 	}
-	public void setRecTransCcode(String recTransCcode) {
-		this.recTransCcode = recTransCcode;
+	public void setCreditAccount(String creditAccount) {
+		this.creditAccount = creditAccount;
 	}
-	public String getRecSortCode02() {
-		return recSortCode02;
+	public String getPaymentDetails1() {
+		return paymentDetails1;
 	}
-	public void setRecSortCode02(String recSortCode02) {
-		this.recSortCode02 = recSortCode02;
+	public void setPaymentDetails1(String paymentDetails1) {
+		this.paymentDetails1 = paymentDetails1;
 	}
-	public String getRecAcctNO02() {
-		return RecAcctNO02;
+	public String getPaymentDetails2() {
+		return paymentDetails2;
 	}
-	public void setRecAcctNO02(String recAcctNO02) {
-		RecAcctNO02 = recAcctNO02;
+	public void setPaymentDetails2(String paymentDetails2) {
+		this.paymentDetails2 = paymentDetails2;
 	}
-	public String getRecAmount() {
-		return recAmount;
+	public String getPaymentDetails3() {
+		return paymentDetails3;
 	}
-	public void setRecAmount(String recAmount) {
-		this.recAmount = recAmount;
+	public void setPaymentDetails3(String paymentDetails3) {
+		this.paymentDetails3 = paymentDetails3;
 	}
-	public String getRecUserName() {
-		return recUserName;
+	public String getPayerAccountNumber() {
+		return payerAccountNumber;
 	}
-	public void setRecUserName(String recUserName) {
-		this.recUserName = recUserName;
+	public void setPayerAccountNumber(String payerAccountNumber) {
+		this.payerAccountNumber = payerAccountNumber;
 	}
-	public String getRecClntNO() {
-		return recClntNO;
+	public String getPayerAccountName() {
+		return payerAccountName;
 	}
-	public void setRecClntNO(String recClntNO) {
-		this.recClntNO = recClntNO;
+	public void setPayerAccountName(String payerAccountName) {
+		this.payerAccountName = payerAccountName;
 	}
-	public String getRecMandRef() {
-		return recMandRef;
+	public String getPayerAddress1() {
+		return payerAddress1;
 	}
-	public void setRecMandRef(String recMandRef) {
-		this.recMandRef = recMandRef;
+	public void setPayerAddress1(String payerAddress1) {
+		this.payerAddress1 = payerAddress1;
 	}
-	public String getRecMandStat() {
-		return recMandStat;
+	public String getPayerAddress2() {
+		return payerAddress2;
 	}
-	public void setRecMandStat(String recMandStat) {
-		this.recMandStat = recMandStat;
+	public void setPayerAddress2(String payerAddress2) {
+		this.payerAddress2 = payerAddress2;
 	}
-	public String getRecAcctName() {
-		return recAcctName;
+	public String getPayerBankCode() {
+		return payerBankCode;
 	}
-	public void setRecAcctName(String recAcctName) {
-		this.recAcctName = recAcctName;
+	public void setPayerBankCode(String payerBankCode) {
+		this.payerBankCode = payerBankCode;
 	}
-	public String getRecDate01() {
-		return recDate01;
+	public String getBankName() {
+		return bankName;
 	}
-	public void setRecDate01(String recDate01) {
-		this.recDate01 = recDate01;
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
-	public String getConSortCode() {
-		return conSortCode;
+	public String getPaymentDetails4() {
+		return paymentDetails4;
 	}
-	public void setConSortCode(String conSortCode) {
-		this.conSortCode = conSortCode;
+	public void setPaymentDetails4(String paymentDetails4) {
+		this.paymentDetails4 = paymentDetails4;
 	}
-	public String getConAcctNO() {
-		return conAcctNO;
+	public String getPayerAddress3() {
+		return payerAddress3;
 	}
-	public void setConAcctNO(String conAcctNO) {
-		this.conAcctNO = conAcctNO;
+	public void setPayerAddress3(String payerAddress3) {
+		this.payerAddress3 = payerAddress3;
 	}
-	public String getConAcctCode() {
-		return conAcctCode;
+	public String getIsoCurrency() {
+		return isoCurrency;
 	}
-	public void setConAcctCode(String conAcctCode) {
-		this.conAcctCode = conAcctCode;
+	public void setIsoCurrency(String isoCurrency) {
+		this.isoCurrency = isoCurrency;
 	}
-	public String getConTransCode() {
-		return conTransCode;
-	}
-	public void setConTransCode(String conTransCode) {
-		this.conTransCode = conTransCode;
-	}
-	public String getConSortCode02() {
-		return conSortCode02;
-	}
-	public void setConSortCode02(String conSortCode02) {
-		this.conSortCode02 = conSortCode02;
-	}
-	public String getConAcctNO02() {
-		return conAcctNO02;
-	}
-	public void setConAcctNO02(String conAcctNO02) {
-		this.conAcctNO02 = conAcctNO02;
-	}
-	public String getConAmount() {
-		return conAmount;
-	}
-	public void setConAmount(String conAmount) {
-		this.conAmount = conAmount;
-	}
-	public String getConUserName() {
-		return conUserName;
-	}
-	public void setConUserName(String conUserName) {
-		this.conUserName = conUserName;
-	}
-	public String getConContra() {
-		return conContra;
-	}
-	public void setConContra(String conContra) {
-		this.conContra = conContra;
-	}
-	public String getConAcctName() {
-		return conAcctName;
-	}
-	public void setConAcctName(String conAcctName) {
-		this.conAcctName = conAcctName;
-	}
-	public String getConDate01() {
-		return conDate01;
-	}
-	public void setConDate01(String conDate01) {
-		this.conDate01 = conDate01;
-	}
+	
 }

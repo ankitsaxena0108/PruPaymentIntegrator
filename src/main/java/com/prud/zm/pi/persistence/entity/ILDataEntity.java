@@ -38,6 +38,8 @@ public class ILDataEntity {
 		private String servUnit;
 		@Column(name = "CNTTYPE")
 		private String cntType;
+		@Column(name = "CNTCURR")
+		private String cntCurr;
 		@Column(name = "OCCDATE")
 		private String occDate;
 		@Column(name = "CCDATE")
@@ -569,15 +571,21 @@ public class ILDataEntity {
 		public void setDaTime(String daTime) {
 			this.daTime = daTime;
 		}
+		public String getCntCurr() {
+			return cntCurr;
+		}
+		public void setCntCurr(String cntCurr) {
+			this.cntCurr = cntCurr;
+		}
 		@Override
 		public String toString() {
 			return "ILDataEntity [id=" + id + ", payrCOY=" + payrCOY + ", payrNUM=" + payrNUM + ", mandRef=" + mandRef
 					+ ", bankKey=" + bankKey + ", bankAccKey=" + bankAccKey + ", billCD=" + billCD + ", chdrPFX="
 					+ chdrPFX + ", chdrCOY=" + chdrCOY + ", chdrNUM=" + chdrNUM + ", servUnit=" + servUnit
-					+ ", cntType=" + cntType + ", occDate=" + occDate + ", ccDate=" + ccDate + ", ptDate=" + ptDate
-					+ ", byDate=" + byDate + ", billDate=" + billDate + ", billCHNL=" + billCHNL + ", bankCode="
-					+ bankCode + ", instFrom=" + instFrom + ", instTo=" + instTo + ", instBCHNL=" + instBCHNL
-					+ ", instCCHNL=" + instCCHNL + ", instFreq=" + instFreq + ", instAmt01=" + instAmt01
+					+ ", cntType=" + cntType + ", cntCurr=" + cntCurr + ", occDate=" + occDate + ", ccDate=" + ccDate
+					+ ", ptDate=" + ptDate + ", byDate=" + byDate + ", billDate=" + billDate + ", billCHNL=" + billCHNL
+					+ ", bankCode=" + bankCode + ", instFrom=" + instFrom + ", instTo=" + instTo + ", instBCHNL="
+					+ instBCHNL + ", instCCHNL=" + instCCHNL + ", instFreq=" + instFreq + ", instAmt01=" + instAmt01
 					+ ", instAmt02=" + instAmt02 + ", instAmt03=" + instAmt03 + ", instAmt04=" + instAmt04
 					+ ", instAmt05=" + instAmt05 + ", instAmt06=" + instAmt06 + ", instAmt07=" + instAmt07
 					+ ", instAmt08=" + instAmt08 + ", instAmt09=" + instAmt09 + ", instAmt10=" + instAmt10
@@ -592,6 +600,5 @@ public class ILDataEntity {
 					+ rdocPFX + ", rdocCOY=" + rdocCOY + ", rdocNUM=" + rdocNUM + ", nextDate=" + nextDate
 					+ ", userProfile=" + userProfile + ", jobName=" + jobName + ", daTime=" + daTime + "]";
 		}
-		
-		
+				
 }

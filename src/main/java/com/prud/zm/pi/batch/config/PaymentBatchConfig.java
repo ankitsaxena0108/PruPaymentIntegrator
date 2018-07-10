@@ -50,7 +50,7 @@ public class PaymentBatchConfig {
 		}
 		reader.setDataSource(dataSource);
 		reader.setPageSize(1);
-		reader.setRowMapper(new ILDataBatchRowMapper());
+	    reader.setRowMapper(new ILDataBatchRowMapper());
 		return reader;
 	}
 

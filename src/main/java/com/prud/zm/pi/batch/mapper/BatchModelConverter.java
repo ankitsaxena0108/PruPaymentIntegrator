@@ -5,4 +5,5 @@ import com.prud.zm.pi.persistence.entity.ILDataEntity;
 
 public interface BatchModelConverter {
 	CitiBankDomainModel map(ILDataEntity source);
+	//T map(S source);
 }

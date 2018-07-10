@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +29,8 @@ import com.prud.zm.pi.service.ILService;
 
 @RestController
 @RequestMapping("/ILDataJson")
+@PropertySource("classpath:citbank-attributes.properties")
 public class ILController {
-
 	@Autowired
 	private ILService ilService;
 	@Autowired
