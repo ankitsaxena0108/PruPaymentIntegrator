@@ -12,7 +12,7 @@ import com.prud.zm.pi.model.ILData;
 import com.prud.zm.pi.persistence.entity.ILDataEntity;
 
 @Component
-public class XLSXtoObjectConvertor {
+public class OutboundXLSXtoObjectConvertor {
 
 	public List<ILData> xlsxToJavaObject(File file) {
 

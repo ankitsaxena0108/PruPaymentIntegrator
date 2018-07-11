@@ -1,7 +1,5 @@
 package com.prud.zm.pi.model;
 
-import javax.persistence.Column;
-
 import com.poiji.annotation.ExcelCellName;
 
 public class ILData {
