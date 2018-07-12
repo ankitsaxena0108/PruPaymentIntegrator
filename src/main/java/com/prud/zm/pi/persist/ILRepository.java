@@ -5,12 +5,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prud.zm.pi.persistence.entity.ILDataEntity;
 
 @Repository
 public interface ILRepository extends CrudRepository<ILDataEntity, Long> {
-	@Modifying
-	@Query("update ILDataEntity p set p.payFlag = :payFlag where p.payrNUM = :payrNum")
-	void updateBankResponseStatus(@Param("payFlag") String payFlag, @Param("payrNum") String payrNum);
+	@Modifying(clearAutomatically=true)
+	@Transactional
+	@Query("update ILDataEntity p set p.payFlag = :payFlag , p.recordStatus = 'COMPLETED' where p.payrNUM = :payrNUM")
+	void updateBankResponseStatus(@Param("payFlag") String payFlag, @Param("payrNUM") String payrNUM);
 }

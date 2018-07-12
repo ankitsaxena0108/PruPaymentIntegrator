@@ -154,9 +154,15 @@ public class ILDataEntity {
 		private String jobName;
 		@Column(name = "DATIME")
 		private String daTime;
+		@Column(name = "RECORDSTATUS")
+		private String recordStatus;
 		
-		
-		
+		public String getRecordStatus() {
+			return recordStatus;
+		}
+		public void setRecordStatus(String recordStatus) {
+			this.recordStatus = recordStatus;
+		}
 		public Long getId() {
 			return id;
 		}
@@ -598,7 +604,9 @@ public class ILDataEntity {
 					+ jobNO + ", sacsCode=" + sacsCode + ", sacsTyp=" + sacsTyp + ", glMap=" + glMap + ", dhnFlag="
 					+ dhnFlag + ", originalMandStat=" + originalMandStat + ", dddeRef=" + dddeRef + ", rdocPFX="
 					+ rdocPFX + ", rdocCOY=" + rdocCOY + ", rdocNUM=" + rdocNUM + ", nextDate=" + nextDate
-					+ ", userProfile=" + userProfile + ", jobName=" + jobName + ", daTime=" + daTime + "]";
+					+ ", userProfile=" + userProfile + ", jobName=" + jobName + ", daTime=" + daTime + ", recordStatus="
+					+ recordStatus + "]";
 		}
+		
 				
 }

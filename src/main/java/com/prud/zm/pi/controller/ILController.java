@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.dataformat.csv.CsvMapper;
+import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.prud.zm.pi.mapper.InboundXLSXtoObjectConvertor;
 import com.prud.zm.pi.mapper.OutboundXLSXtoObjectConvertor;
 import com.prud.zm.pi.model.BankResponse;
@@ -39,8 +42,7 @@ public class ILController {
 	private OutboundXLSXtoObjectConvertor outboundXLSXtoObjectConvertor;
 	@Autowired
 	private InboundXLSXtoObjectConvertor inboundXLSXtoObjectConvertor;
-	
-	
+
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String addOrder(@RequestBody ILDataList ilDataList) throws ParseException {
 		return ilService.addILData(ilDataList);
@@ -48,34 +50,48 @@ public class ILController {
 
 	@RequestMapping(value = "/outbound", method = RequestMethod.POST)
 	@ResponseBody
-	public void outBoundflow(HttpServletResponse response,@RequestParam(value = "file") final MultipartFile pasFile) {
+	public void outBoundflow(HttpServletResponse response, @RequestParam(value = "file") final MultipartFile pasFile) {
 		try {
-			List<ILData> ilList = outboundXLSXtoObjectConvertor.xlsxToJavaObject(convert(pasFile));
+			String extension = FilenameUtils.getExtension(pasFile.getOriginalFilename());
+			List<ILData> ilList = null;
+			if (extension.equalsIgnoreCase("CSV")) {
+				ilList = csvToJavaObjectConvertor(convert(pasFile));
+			} else {
+				ilList = outboundXLSXtoObjectConvertor.xlsxToJavaObject(convert(pasFile));
+			}
 			System.out.println("ilDataList = " + ilList);
 			ILDataList ilDataList = new ILDataList();
 			ilDataList.setIlData(ilList);
 			ilService.addILData(ilDataList);
-			File f = new File("_Response.txt");
-			doXLSResponse(response,f,"_Response.txt");
+			File f = new File("CITIBANK_Response.txt");
+			doXLSResponse(response, f, "CITIBANK_Response.txt");
 			System.out.println("persist Success");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("persist Failed");
 		}
 	}
-	
+
 	@RequestMapping(value = "/inbound", method = RequestMethod.POST)
 	@ResponseBody
 	public void inBoundflow(HttpServletResponse response, @RequestParam(value = "file") final MultipartFile pasFile) {
 		try {
-			List<BankResponse> bResponseList = inboundXLSXtoObjectConvertor.xlsxToJavaObject(convert(pasFile));
+			String extension = FilenameUtils.getExtension(pasFile.getOriginalFilename());
+			System.out.println("extension " + extension);
+			List<BankResponse> bResponseList = null;
+
+			if (extension.equalsIgnoreCase("xls"))
+				bResponseList = inboundXLSXtoObjectConvertor.xlsxToJavaObject(convert(pasFile));
+			else
+				bResponseList = csvToJavaObjectInboundConvertor(convert(pasFile));
+
 			System.out.println("bankResponseList = " + bResponseList);
 			BankResponseList bankResponseList = new BankResponseList();
 			bankResponseList.setBankResponseList(bResponseList);
 			ilService.updateBankDetails(bankResponseList);
 			System.out.println("persist Success");
-			File f = new File("updated_DD source.xls");
-			doXLSResponse(response,f,"updated_DD source.xls");
+			File f = new File("DD source.csv");
+			doXLSResponse(response, f, "DD source.csv");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("file updation Failed");
@@ -90,22 +106,21 @@ public class ILController {
 		fos.close();
 		return convFile;
 	}
-	
-	private void doXLSResponse(HttpServletResponse response, File file,String fileName) {
+
+	private void doXLSResponse(HttpServletResponse response, File file, String fileName) {
 		byte[] contents = fileToByte(file);
 		String responseFile = fileName;
 		response.setContentType("text/plain");
 		String headerKey = "Content-Disposition";
 		String headerValue = String.format("attachment; filename=\"%s\"", responseFile);
 		response.setHeader(headerKey, headerValue);
-		OutputStream os=null;
+		OutputStream os = null;
 		try {
 			os = response.getOutputStream();
 			os.write(contents);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
-		finally {
+		} finally {
 			try {
 				os.flush();
 				os.close();
@@ -113,18 +128,17 @@ public class ILController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
 		}
 
-		
 		response.setContentLength(contents.length);
 		response.setHeader("Content-Disposition", "attachment;filename= " + responseFile);
 
-		if (!file.delete()) {
-			System.out.println("Unable to delete file");
-		}
+		/*
+		 * if (!file.delete()) { System.out.println("Unable to delete file"); }
+		 */
 	}
+
 	private byte[] fileToByte(File file) {
 		FileInputStream fileInputStream = null;
 
@@ -137,10 +151,39 @@ public class ILController {
 			if (count > 0)
 				return bFile;
 		} catch (Exception e) {
-		     e.printStackTrace();
+			e.printStackTrace();
 		}
 
 		return bFile;
 	}
+
+	public List<ILData> csvToJavaObjectConvertor(File file) {
+		CsvMapper csvMapper = new CsvMapper();
+		CsvSchema csvSchema = csvMapper.typedSchemaFor(ILData.class).withHeader();
+		List list = null;
+		try {
+			list = new CsvMapper().readerFor(ILData.class)
+					.with(csvSchema.withColumnSeparator(CsvSchema.DEFAULT_COLUMN_SEPARATOR)).readValues(file).readAll();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return list;
+
+	}
+	
+	
+	public List<BankResponse> csvToJavaObjectInboundConvertor(File file) {
+		CsvMapper csvMapper = new CsvMapper();
+		CsvSchema csvSchema = csvMapper.typedSchemaFor(BankResponse.class).withHeader();
+		List list = null;
+		try {
+			list = new CsvMapper().readerFor(BankResponse.class)
+					.with(csvSchema.withColumnSeparator(CsvSchema.DEFAULT_COLUMN_SEPARATOR)).readValues(file).readAll();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return list;
+
+	}	
 
 }

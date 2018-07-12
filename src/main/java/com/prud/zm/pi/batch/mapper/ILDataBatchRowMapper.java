@@ -21,6 +21,7 @@ public class ILDataBatchRowMapper implements RowMapper<ILDataEntity> {
 		ilDataEntity.setCntCurr(rs.getString("CNTCURR"));
 		ilDataEntity.setUserProfile(rs.getString("USER_PROFILE"));
 		ilDataEntity.setAgntCOY(rs.getString("AGNTCOY"));
+		ilDataEntity.setBankKey(rs.getString("BANKKEY"));
 		return ilDataEntity;
 	}
 

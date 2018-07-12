@@ -20,6 +20,7 @@ public class ILPersister {
 
 	public void saveIlData(ILDataEntity ildataEntity) {
 		System.out.println("Before add " + ildataEntity);
+		ildataEntity.setRecordStatus("READY");
 		ilRepository.save(ildataEntity);
 	}
 

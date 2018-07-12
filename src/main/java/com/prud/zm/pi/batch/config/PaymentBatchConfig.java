@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.prud.zm.pi.batch.listener.BatchJobCompletionListener;
 import com.prud.zm.pi.batch.mapper.ILDataBatchRowMapper;
+import com.prud.zm.pi.batch.model.ILDataBatchEntity;
 import com.prud.zm.pi.batch.processor.ILDataBatchProcessor;
 import com.prud.zm.pi.batch.writer.ILDataBatchWriter;
 import com.prud.zm.pi.persistence.entity.ILDataEntity;
@@ -41,7 +42,7 @@ public class PaymentBatchConfig {
 		sqlPagingQueryProviderFactoryBean.setDataSource(dataSource);
 		sqlPagingQueryProviderFactoryBean.setSelectClause("select *");
 		sqlPagingQueryProviderFactoryBean.setFromClause("from paymentdetails");
-		// sqlPagingQueryProviderFactoryBean.setWhereClause("where bankId = 'DBS'");
+		sqlPagingQueryProviderFactoryBean.setWhereClause("where RECORDSTATUS = 'READY'");
 		sqlPagingQueryProviderFactoryBean.setSortKey("pd_id");
 		try {
 			reader.setQueryProvider(sqlPagingQueryProviderFactoryBean.getObject());
@@ -61,7 +62,7 @@ public class PaymentBatchConfig {
 	}
 
 	@Bean
-	public ItemWriter<ILDataEntity> writer() {
+	public ItemWriter<ILDataBatchEntity> writer() {
 		System.out.println("in batch writer");
 		return new ILDataBatchWriter();
 	}

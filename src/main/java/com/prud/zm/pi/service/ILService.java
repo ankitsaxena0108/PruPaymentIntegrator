@@ -1,21 +1,16 @@
 package com.prud.zm.pi.service;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 import com.prud.zm.pi.batch.helper.PaymentBatchJobLauncher;
 import com.prud.zm.pi.helper.ILDataHelper;
 import com.prud.zm.pi.model.BankResponse;
@@ -56,15 +51,40 @@ public class ILService {
 			return "Falure: bankResponselist is empty ";
 		}
 		for(BankResponse bankResponse : bankResponseList.getBankResponseList()){
-			//ilPersister.updateIlData(bankResponse);
+			ilPersister.updateIlData(bankResponse);
 			fileRecordMap.put(bankResponse.getRecordID(),bankResponse.getRecordStatus());
 			System.out.println(fileRecordMap);
-			appendXLS(fileRecordMap,"DD source.xls");
+			appendXLS(fileRecordMap,"DD source.csv");
 		}
 		
 		return "Success";
 	}
 	private void appendXLS(HashMap<String, String> map,String fileName) {
+		try {
+			File inputFile = new File(fileName);
+			CSVReader reader = new CSVReader(new FileReader(inputFile), ',');
+			List<String[]> csvBody = reader.readAll();
+			// get CSV row column  and replace with by using row and column
+			for (String[] strings : csvBody) {
+				String key=strings[1];
+				if(map.containsKey(key))
+				{
+					strings[51]=map.get(key);
+				}
+			}
+			reader.close();
+
+			// Write to CSV file which is open
+			CSVWriter writer = new CSVWriter(new FileWriter(inputFile), ',');
+			writer.writeAll(csvBody);
+			writer.flush();
+			writer.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/*
 		Workbook workbook = null;
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(fileName));
@@ -75,7 +95,7 @@ public class ILService {
 			rowIterator.next();
 			while (rowIterator.hasNext()) {
 				Row row = rowIterator.next();
-				String key=row.getCell(1).getStringCellValue();
+				Double key=row.getCell(1).getNumericCellValue();
 				if (map.containsKey(key)) {
 					System.out.println("1 Column Updated");
 					row.getCell(51).setCellValue(map.get(key));
@@ -100,5 +120,5 @@ public class ILService {
 				e.printStackTrace();
 			}
 		}
-	}
+	*/}
 }
