@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ public class ILDataBatchWriter implements ItemWriter<ILDataEntity> {
 	private Environment env;
 	@Autowired
 	private OrikaBatchModelConverter converter;
+	@Resource(name = "citbankMappingProperty")
+	private Map<String, String> myProperties;
 
 	private String fillValue(String value, String size) {
 		if (value != null && !value.equals("")) {
@@ -74,7 +79,7 @@ public class ILDataBatchWriter implements ItemWriter<ILDataEntity> {
 	@Override
 	public void write(List<? extends ILDataEntity> items) throws Exception {
 		System.out.println("items " + items);
-		CitiBankDomainModel citiModel = converter.map(items.get(0));
+		CitiBankDomainModel citiModel = (CitiBankDomainModel) converter.map(items.get(0),ILDataEntity.class,CitiBankDomainModel.class,myProperties);
 		writeFileToBankDirectory(getRowData(citiModel));
 	}
 

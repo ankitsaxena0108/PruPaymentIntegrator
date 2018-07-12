@@ -1,9 +1,9 @@
 package com.prud.zm.pi.batch.mapper;
 
-import com.prud.zm.pi.model.CitiBankDomainModel;
-import com.prud.zm.pi.persistence.entity.ILDataEntity;
+import java.util.Map;
 
-public interface BatchModelConverter<S,T> {
-	CitiBankDomainModel map(ILDataEntity source);
+public interface BatchModelConverter {
+	//CitiBankDomainModel map(ILDataEntity source);
 	//T map(S source);
+	Object map(Object source, Class sourceClass,Class targetClass,Map<String,String> map);
 }

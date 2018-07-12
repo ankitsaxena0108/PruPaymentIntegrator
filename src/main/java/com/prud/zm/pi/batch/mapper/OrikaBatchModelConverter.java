@@ -1,13 +1,13 @@
 package com.prud.zm.pi.batch.mapper;
 
-import org.springframework.stereotype.Component;
+import java.util.Map;
 
-import com.prud.zm.pi.model.CitiBankDomainModel;
-import com.prud.zm.pi.persistence.entity.ILDataEntity;
+import org.springframework.stereotype.Component;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ma.glasnost.orika.metadata.ClassMapBuilder;
 
 /**
  * @param <S>
@@ -16,43 +16,24 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 @Component
 public class OrikaBatchModelConverter implements BatchModelConverter {
 
-	private final MapperFacade mapper;
-	/*private S s;
-	private T t;*/
+	private MapperFacade mapper;
+	MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
 
 	public OrikaBatchModelConverter() {
-		MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-		mapperFactory.classMap(ILDataEntity.class,CitiBankDomainModel.class)
-		.field("payrNUM", "customerReference")
-		.field("instAmt01", "amount")
-		.field("byDate", "bookingDate")
-		.field("bankAccKey", "creditAccount")
-		.field("cntCurr", "isoCurrency")
-		/*.field("agntCOY", "paymentDetails1")
-		.field("agntCOY", "paymentDetails2")
-		.field("agntCOY", "paymentDetails3")*/
-		.field("bankAccKey", "payerAccountNumber")
-		.field("userProfile", "payerAccountName")
-		/*.field("agntCOY", "payerAddress1")
-		.field("agntCOY", "payerAddress2")*/
-		.field("agntCOY", "payerBankCode")
-		//.field("agntCOY", "bankName")
-		//.field("agntCOY", "paymentDetails4")
-		//.field("agntCOY", "payerAddress3")
-		.byDefault().register();
-		mapper = mapperFactory.getMapperFacade();
+		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public CitiBankDomainModel map(ILDataEntity source) {
-		// TODO Auto-generated method stub
-		return mapper.map(source, CitiBankDomainModel.class);
+	public Object map(Object source, Class sourceClass, Class targetClass, Map<String, String> map) {
+		ClassMapBuilder<Object, Object> classMapBilder = mapperFactory.classMap(sourceClass,targetClass);
+		if(!map.isEmpty()) {
+			for(Map.Entry<String,String> s : map.entrySet()) {
+				classMapBilder.field(s.getKey(),s.getValue());
+			}
+		}
+		classMapBilder.byDefault().register();
+		mapper = mapperFactory.getMapperFacade();
+		return mapper.map(source, targetClass);
 	}
-
-	/*@Override
-	public T map(S source) {
-		// TODO Auto-generated method stub
-		return (T) mapper.map(source, ((Object)t).getClass());
-	}*/
-
 }
