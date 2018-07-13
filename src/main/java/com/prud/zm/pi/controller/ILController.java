@@ -14,6 +14,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +36,7 @@ import com.prud.zm.pi.service.ILService;
 @RestController
 @RequestMapping("/payment")
 @PropertySource("classpath:citbank-attributes.properties")
+@CrossOrigin(origins="*")
 public class ILController {
 	@Autowired
 	private ILService ilService;
@@ -48,7 +50,7 @@ public class ILController {
 		return ilService.addILData(ilDataList);
 	}
 
-	@RequestMapping(value = "/outbound", method = RequestMethod.POST)
+	@RequestMapping(value = "/collectionReceivable", method = RequestMethod.POST)
 	@ResponseBody
 	public void outBoundflow(HttpServletResponse response, @RequestParam(value = "file") final MultipartFile pasFile) {
 		try {
@@ -63,8 +65,8 @@ public class ILController {
 			ILDataList ilDataList = new ILDataList();
 			ilDataList.setIlData(ilList);
 			ilService.addILData(ilDataList);
-			File f = new File("CITIBANK_Response.txt");
-			doXLSResponse(response, f, "CITIBANK_Response.txt");
+			File f = new File("EASYPAY_Response.csv");
+			doXLSResponse(response, f, "EASYPAY_Response.csv");
 			System.out.println("persist Success");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +74,7 @@ public class ILController {
 		}
 	}
 
-	@RequestMapping(value = "/inbound", method = RequestMethod.POST)
+	@RequestMapping(value = "/collectionsReceived", method = RequestMethod.POST)
 	@ResponseBody
 	public void inBoundflow(HttpServletResponse response, @RequestParam(value = "file") final MultipartFile pasFile) {
 		try {

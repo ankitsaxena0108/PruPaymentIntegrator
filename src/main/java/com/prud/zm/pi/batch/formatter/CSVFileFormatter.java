@@ -24,9 +24,8 @@ public class CSVFileFormatter implements FileFormatter{
 	private String fillValue(String value, String size) {
 		System.out.println("**********************"+value);
 		String[] sizes = size.split(",");
-		if (value != null && !value.equals("") && value.length() >= Integer.parseInt(sizes[1]) && value.length() <= Integer.parseInt(sizes[0]) ) {
+		if (value != null && !value.equals("") /*&& value.length() >= Integer.parseInt(sizes[1]) && value.length() <= Integer.parseInt(sizes[0])*/ ) {
 			System.out.println("##########################"+value);
-
 			return value;
 		}
 		return "";

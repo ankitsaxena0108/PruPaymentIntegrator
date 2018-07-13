@@ -21,7 +21,7 @@ public class ILDataBatchWriter implements ItemWriter<ILDataBatchEntity> {
 		List<ILDataBatchEntity> iLDataBatchEntitylist = new ArrayList<>(items);
 		flatFileFormatter.writeFileToBankDirectory(flatFileFormatter.getRowData(iLDataBatchEntitylist));
 		System.out.println("2writer **********************"+items);
-		csvFileFormatter.writeFileToBankDirectory(flatFileFormatter.getRowData(iLDataBatchEntitylist));
+		csvFileFormatter.writeFileToBankDirectory(csvFileFormatter.getRowData(iLDataBatchEntitylist));
 		System.out.println("3writer **********************"+items);
 	}
 
